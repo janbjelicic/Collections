@@ -64,7 +64,7 @@ class CharactersViewController: UICollectionViewController {
 
 }
 
-// MARK: - Data source
+// MARK: - Collection View data source
 extension CharactersViewController {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -96,6 +96,15 @@ extension CharactersViewController {
     
 }
 
+// MARK: - Collection View delegate
+extension CharactersViewController {
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.coordinator?.showCharacterDetails(character: viewModel.data[indexPath.section].characters[indexPath.row])
+    }
+    
+}
+
 // MARK: - Flow layout
 extension CharactersViewController: UICollectionViewDelegateFlowLayout {
     
@@ -103,7 +112,7 @@ extension CharactersViewController: UICollectionViewDelegateFlowLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                  heightDimension: .fractionalHeight(1.0)))
-            item.contentInsets = NSDirectionalEdgeInsets(top: 0.0, leading: 8.0, bottom: 0.0, trailing: 8.0)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(136),
                                                                                               heightDimension: .absolute(44)),
                                                            subitem: item,

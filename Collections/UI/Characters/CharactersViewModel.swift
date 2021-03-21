@@ -7,12 +7,22 @@
 
 import Foundation
 
+struct CharactersViewData {
+    
+    let race: CharacterRace
+    let characters: [Character]
+    
+}
+
 class CharactersViewModel {
     
     let service: CharactersServiceProtocol
-    private(set) var data: [CharacterViewModel] = []
+    weak var coordinator: AppCoordinatorProtocol?
     
-    init(service: CharactersServiceProtocol) {
+    private(set) var data: [CharactersViewData] = []
+    
+    init(coordinator: AppCoordinatorProtocol, service: CharactersServiceProtocol) {
+        self.coordinator = coordinator
         self.service = service
     }
     
@@ -26,11 +36,11 @@ class CharactersViewModel {
                 let humans = characters.filter { character in
                     character.race == .human
                 }
-                self.data.append(CharacterViewModel(race: .human, characters: humans))
+                self.data.append(CharactersViewData(race: .human, characters: humans))
                 let elves = characters.filter { character in
                     character.race == .elf
                 }
-                self.data.append(CharacterViewModel(race: .elf, characters: elves))
+                self.data.append(CharactersViewData(race: .elf, characters: elves))
                 completion(.success(()))
             case .failure(let error):
                 completion(.failure(error))
