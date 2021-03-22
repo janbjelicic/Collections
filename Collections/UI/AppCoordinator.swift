@@ -33,6 +33,7 @@ class AppCoordinator: AppCoordinatorProtocol {
         window.makeKeyAndVisible()
     }
     
+    // Shows the characters screen.
     func showCharacterDetails(character: Character) {
         guard let characterDetailsViewController = R.storyboard.main.characterDetailViewControllerID() else { return }
         let characterDetailsViewModel = CharacterDetailsViewModel(character: character)
